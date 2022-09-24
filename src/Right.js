@@ -1,7 +1,8 @@
-
-
+import React from "react";
 
 export default function Right() {
+    const [wordForDisplay, wordForDisplaySet] = React.useState([])
+    let arrayForTemplate=[]
 
     const wordArray = [
 
@@ -18,14 +19,12 @@ export default function Right() {
         'holandês'
 
     ]
-
-    let arrayForTemplate = []
     function randomNumber() {
         let number = Math.floor(Math.random() * 11)
+        //arrayForTemplate = ;
 
-        const arrayForTemplate = wordArray[number].toUpperCase().split("");
-        console.log(arrayForTemplate)
-        return arrayForTemplate;
+        wordForDisplaySet(wordArray[number].toUpperCase().split(""));
+        console.log(wordForDisplay)
     }
 
     function GameWordTemplate(props) {
@@ -41,9 +40,9 @@ export default function Right() {
         <section className="right-column" >
             <button className="choose-button" onClick={randomNumber}>Escolha a palavra</button>
             <span className="gameWord-container">
-                {arrayForTemplate.map((w) => {
+                {wordForDisplay.map((w, index) => {
                     return (
-                        <GameWordTemplate word={w} />
+                        <GameWordTemplate word={w} key={index} />
                     )
                 })}
             </span>
