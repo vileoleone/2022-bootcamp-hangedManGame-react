@@ -25,18 +25,13 @@
 }
 
 .clicked-letter {
-    background-color: rgb(180, 211, 220);
-    border: rgb(5, 34, 43) solid 2px;
-    border-radius: 5px;
-    color:  rgb(48, 73, 80);
-    margin-bottom: 10px;
-    font-weight: 700;
-    height: 50px;
+    font-weight: 500;
+    height: 30px;
+    font-size: 20px;
+    border-bottom: black 4px solid;
+    text-align: center;
+    width: 4vw;
     margin-right: 10px;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 
@@ -123,11 +118,10 @@
     font-weight: 500;
     height: 30px;
     font-size: 20px;
-    border-bottom: black 4px solid;
     text-align: center;
     width: 4vw;
     margin-right: 10px;
-    
+    opacity: 0;
 }
 
 .gameWord-container {
