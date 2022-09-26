@@ -8,7 +8,6 @@
     max-height: 50%;
     max-width: 80%;
     justify-content: center;
-    border: rebeccapurple solid 2px;
 }
 
 .choose-button {
@@ -24,11 +23,20 @@
     border: none;
 }
 
-
-
+.choose-button-disabled {
+    width: 180px;
+    height: 60px;
+    background-color: #084f28;
+    color: rgb(2, 37, 20);
+    font-size: 20px;
+    font-family: "roboto";
+    border-radius: 10px;
+    font-weight: 700;
+    box-shadow: 1px 1px 1px 1px rgb(4, 31, 12);
+    border: none;
+}
 
 .main {
-    border: 2px solid blueviolet;
     display: flex;
     flex-direction: row;
 }
@@ -43,7 +51,6 @@
 }
 
 .left-figure {
-    border: 5px solid forestgreen;
     align-items: center;
     width: 50%;
 }
@@ -56,7 +63,6 @@
 .right-column {
     width: 50%;
     display: flex;
-    border: 1px solid fuchsia;
     justify-content:space-between;
     align-items:flex-end;
     flex-direction: column;
@@ -66,7 +72,6 @@
 .below-board {
     display: flex;
     flex-direction: row;
-    border: darkgoldenrod 1px solid;
     justify-content:center;
     margin-left: auto;
     margin-right: auto;
@@ -76,11 +81,9 @@
 .below-board p {
     text-align: center;
     width: 250px;
-    border: #54f942 solid 1px;
 }
 
 .board{
-    border: darkred solid 2px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -138,7 +141,6 @@
 
 .user-board {
     margin-top: 20px;
-    border: 2px solid indianred;
     width: 100%;
     flex-direction: column;
     justify-content: center;
@@ -152,6 +154,17 @@
     align-self: center;
     background-color: rgb(180, 211, 220);
     color:  rgb(36, 99, 118);
+    font-weight: 700;
+    border-radius: 5px;
+
+}
+
+.try-button-disabled {
+    width: 150px;
+    height: 40px ;
+    align-self: center;
+    background-color: rgb(91, 105, 109);
+    color:  rgb(60, 62, 63);
     font-weight: 700;
     border-radius: 5px;
 

@@ -38,15 +38,24 @@ export default function App() {
     const [wordForDisplay, wordForDisplaySet] = React.useState([])
     const [checkForWin, checkWinSet] = React.useState(false)
     const [countForWin, countForWinSet] = React.useState(1);
+    const [inputValue, inputValueSet] = React.useState("")
     let wordsToWin = countWords(wordForDisplay);
 
     function randomNumber() {
-
-        if (wordForDisplay.length === 0) {
-            let number = Math.floor(Math.random() * 11)
-            wordForDisplaySet(wordArray[number].toUpperCase().split(""));
-
+        if (wordForDisplay.length !== 0) {
+            setError(1);
+            changeImage(0);
+            boardClickedSet([])
+            wordForDisplaySet([])
+            checkWinSet(false)
+            countForWinSet(1)
+            inputValueSet("")
+            clickSet([])
         }
+
+        let number = Math.floor(Math.random() * 11)
+        wordForDisplaySet(wordArray[number].toUpperCase().split(""));
+        console.log(wordForDisplay)
     }
 
     function countWords(list) {
@@ -63,12 +72,12 @@ export default function App() {
         setError(numberofErrors + 1);
     }
 
-    function changeImage() {
-        imageSet(imageArray[numberofErrors]);
+    function changeImage(n) {
+        imageSet(imageArray[n]);
     }
 
     function onClickLetter(letter) {
-        console.log(wordForDisplay)
+        console.log(wordForDisplay.join(""))
 
         boardClickedSet([...boardClickedArray, letter]);
 
@@ -82,9 +91,20 @@ export default function App() {
 
         } else {
             changeError();
-            changeImage();
+            changeImage(numberofErrors);
         }
+    }
 
+    function kick() {
+        inputValueSet("")
+        if (inputValue.toUpperCase() === wordForDisplay.join("")) {
+            checkWinSet(true)
+        }
+        else {
+            setError(7)
+            changeImage(6);
+        }
+        
     }
 
     return (
@@ -92,7 +112,17 @@ export default function App() {
             <main className="main">
                 <Left currentImage={currentImage} />
                 <section className="right-column" >
-                    <button className="choose-button" onClick={randomNumber}>Escolha a palavra</button>
+                    <button
+                        className={
+                            (wordForDisplay.length === 0) ? "choose-button" :
+                                (numberofErrors === 7 || checkForWin === true) ? "choose-button" : "choose-button-disabled"
+                        }
+                        onClick={randomNumber}
+                        disabled={
+                            (wordForDisplay.length === 0) ? false :
+                                (numberofErrors === 7 || checkForWin === true) ? false : true
+                        }
+                    >Escolha a palavra</button>
                     <span className="gameWord-container">
                         {wordForDisplay.map((w, index) => {
                             return (
@@ -134,8 +164,22 @@ export default function App() {
                 </div>
                 <span className="below-board">
                     <p> Já sei a palavra!</p>
-                    <input className="input" type="text" placeholder="Digite a palavra"></input>
-                    <button className="try-button">Chutar</button>
+                    <input
+                    className="input"
+                    type="text"
+                    placeholder="Digite a palavra"
+                    onChange={(event) => { inputValueSet(event.target.value) }}
+                    value = {inputValue}
+                    ></input>
+                    <button
+
+                        className={numberofErrors === 7 || checkForWin === true || wordForDisplay.length === 0 ? "try-button-disabled" : "try-button"}
+                        onClick={kick}
+                        disabled={
+
+                            (numberofErrors === 7 || checkForWin === true) ? true : false
+                        }
+                    >Chutar</button>
                 </span>
             </div>
 
