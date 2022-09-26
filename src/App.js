@@ -2,7 +2,7 @@
 import Letter from "./Letter";
 import GameWordTemplate from "./GameWordTemplate"
 import Left from "./Left"
-import React, { useState } from "react";
+import React from "react";
 import palavras from "./palavras"
 
 import image0 from "./assets/forca0.png";
@@ -104,13 +104,17 @@ export default function App() {
             setError(7)
             changeImage(6);
         }
-        
+
     }
 
     return (
         <div className="body">
             <main className="main">
-                <Left currentImage={currentImage} />
+                <section className="left-figure" data-identifier="game-image">
+                    <Left currentImage={currentImage} />
+                </section>
+
+
                 <section className="right-column" >
                     <button
                         className={
@@ -122,8 +126,9 @@ export default function App() {
                             (wordForDisplay.length === 0) ? false :
                                 (numberofErrors === 7 || checkForWin === true) ? false : true
                         }
+                        data-identifier="choose-word"
                     >Escolha a palavra</button>
-                    <span className="gameWord-container">
+                    <span className="gameWord-container" data-identifier="word" >
                         {wordForDisplay.map((w, index) => {
                             return (
                                 <GameWordTemplate
@@ -133,7 +138,9 @@ export default function App() {
 
                                         checkForWin === true ? "game-win" :
                                             clickedLetterArray.includes(w) ?
-                                                (numberofErrors === 7 ? "game-over" : "clicked-letter") : (numberofErrors === 7 ? "game-over" : "hidden-word")}
+                                                (numberofErrors === 7 ? "game-over" : "clicked-letter") :
+                                                (numberofErrors === 7 ? "game-over" : "hidden-word")}
+
                                 />
                             )
                         })}
@@ -165,14 +172,15 @@ export default function App() {
                 <span className="below-board">
                     <p> Já sei a palavra!</p>
                     <input
-                    className="input"
-                    type="text"
-                    placeholder="Digite a palavra"
-                    onChange={(event) => { inputValueSet(event.target.value) }}
-                    value = {inputValue}
+                        className="input"
+                        type="text"
+                        placeholder="Digite a palavra"
+                        onChange={(event) => { inputValueSet(event.target.value) }}
+                        value={inputValue}
+                        data-identifier="type-guess"
                     ></input>
                     <button
-
+                        data-identifier="guess-button"
                         className={numberofErrors === 7 || checkForWin === true || wordForDisplay.length === 0 ? "try-button-disabled" : "try-button"}
                         onClick={kick}
                         disabled={
