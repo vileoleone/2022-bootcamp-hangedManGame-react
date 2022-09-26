@@ -2,9 +2,8 @@
 import Letter from "./Letter";
 import GameWordTemplate from "./GameWordTemplate"
 import Left from "./Left"
-import React from "react";
-import Userboard from "./Userboard"
-
+import React, { useState } from "react";
+import palavras from "./palavras"
 
 import image0 from "./assets/forca0.png";
 import image1 from "./assets/forca1.png";
@@ -30,48 +29,63 @@ export default function App() {
 
     ]
 
-    const wordArray = [
+    const wordArray = palavras()
 
-        'nordestino',
-        'marajoara',
-        'guzera',
-        'mangalarga',
-        'caracu',
-        'pantaneiro',
-        'campolina',
-        'nelore',
-        'penthorse',
-        'aberdeen',
-        'holandês'
-
-    ]
-
-    const [numberofErrors, setError] = React.useState(0);
+    const [numberofErrors, setError] = React.useState(1);
     const [currentImage, imageSet] = React.useState(imageArray[0]);
     const [clickedLetterArray, clickSet] = React.useState([])
+    const [boardClickedArray, boardClickedSet] = React.useState([])
     const [wordForDisplay, wordForDisplaySet] = React.useState([])
+    const [checkForWin, checkWinSet] = React.useState(false)
+    const [countForWin, countForWinSet] = React.useState(1);
+    let wordsToWin = countWords(wordForDisplay);
 
     function randomNumber() {
 
         if (wordForDisplay.length === 0) {
             let number = Math.floor(Math.random() * 11)
             wordForDisplaySet(wordArray[number].toUpperCase().split(""));
+
         }
     }
 
+    function countWords(list) {
+        let arr = [];
+        list.forEach((item) => {
+            if (!arr.includes(item)) {
+                arr.push(item);
+            }
+        })
+        return arr.length
+    }
 
-    function changeImage(error) {
+    function changeError(error) {
         setError(numberofErrors + 1);
+    }
+
+    function changeImage() {
         imageSet(imageArray[numberofErrors]);
     }
 
     function onClickLetter(letter) {
-        console.log(letter)
-        if (!clickedLetterArray.includes(letter)) {
-            clickSet([...clickedLetterArray, letter])
-        }
-    }
+        console.log(wordForDisplay)
 
+        boardClickedSet([...boardClickedArray, letter]);
+
+        if (wordForDisplay.includes(letter)) {
+            clickSet([...clickedLetterArray, letter])
+            countForWinSet(countForWin + 1)
+
+            if (countForWin === wordsToWin) {
+                checkWinSet(true)
+            }
+
+        } else {
+            changeError();
+            changeImage();
+        }
+
+    }
 
     return (
         <div className="body">
@@ -85,7 +99,11 @@ export default function App() {
                                 <GameWordTemplate
                                     word={w}
                                     key={index}
-                                    class={clickedLetterArray.includes(w) ? "clicked-letter": "hidden-word" }   
+                                    class={
+
+                                        checkForWin === true ? "game-win" :
+                                            clickedLetterArray.includes(w) ?
+                                                (numberofErrors === 7 ? "game-over" : "clicked-letter") : (numberofErrors === 7 ? "game-over" : "hidden-word")}
                                 />
                             )
                         })}
@@ -99,13 +117,26 @@ export default function App() {
                             <Letter
                                 key={index}
                                 letter={letter}
-                                className="each-letter"
+                                className={
+
+                                    (numberofErrors === 7 || checkForWin === true || wordForDisplay.length === 0) ? "each-letter-clicked" :
+                                        (boardClickedArray.includes(letter) ? "each-letter-clicked" : "each-letter")
+                                }
                                 function={() => { onClickLetter(letter) }}
+                                disabled={
+
+                                    (numberofErrors === 7 || checkForWin === true) ? true :
+                                        (boardClickedArray.includes(letter) ? true : false)
+                                }
                             />
                         )
                     })}
                 </div>
-                <Userboard />
+                <span className="below-board">
+                    <p> Já sei a palavra!</p>
+                    <input className="input" type="text" placeholder="Digite a palavra"></input>
+                    <button className="try-button">Chutar</button>
+                </span>
             </div>
 
         </div>

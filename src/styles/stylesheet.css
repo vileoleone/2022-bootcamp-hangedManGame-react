@@ -24,15 +24,7 @@
     border: none;
 }
 
-.clicked-letter {
-    font-weight: 500;
-    height: 30px;
-    font-size: 20px;
-    border-bottom: black 4px solid;
-    text-align: center;
-    width: 4vw;
-    margin-right: 10px;
-}
+
 
 
 .main {
@@ -112,7 +104,19 @@
     align-items: center;
 }
 
-
+.each-letter-clicked {
+    background-color: gray;
+    border-radius: 5px;
+    color:  rgb(66, 65, 65);
+    margin-bottom: 10px;
+    font-weight: 700;
+    height: 50px;
+    margin-right: 10px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .hidden-word {
     font-weight: 500;
@@ -121,7 +125,8 @@
     text-align: center;
     width: 4vw;
     margin-right: 10px;
-    opacity: 0;
+    color: white;
+    border-bottom: black 4px solid;
 }
 
 .gameWord-container {
@@ -150,4 +155,31 @@
     font-weight: 700;
     border-radius: 5px;
 
+}
+
+.clicked-letter {
+    font-weight: 500;
+    height: 30px;
+    font-size: 20px;
+    border-bottom: black 4px solid;
+    text-align: center;
+    width: 4vw;
+    margin-right: 10px;
+    color: black;
+}
+.game-over {
+    font-weight: 500;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    width: 2vw;
+    color: red;
+}
+.game-win {
+    font-weight: 500;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    width: 2vw;
+    color: green;
 }

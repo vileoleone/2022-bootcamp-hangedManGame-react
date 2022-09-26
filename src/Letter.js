@@ -1,9 +1,9 @@
 export default function Letter(props) {
 
     return (
-        <div className={props.className}  onClick={props.function}>
+        <button className={props.className}  onClick={props.function} disabled = {props.disabled}>
             {props.letter}
-        </div >
+        </button>
     )
 }
 
